@@ -65,6 +65,27 @@ export const About = () => {
             improving skills by practicing problem-solving and exploring new
             technologies.
           </motion.p>
+
+          {/* Action Buttons */}
+          <motion.div
+            variants={fadeIn(undefined, undefined, 0.2, 1)}
+            className="mt-8 flex gap-4"
+          >
+            <a
+              href="/Naresh_Kumawat_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-tertiary border border-white-100 py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary hover:bg-white hover:text-tertiary transition-colors"
+            >
+              Resume
+            </a>
+            <a
+              href="#contact"
+              className="bg-[#915EFF] py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary hover:bg-white hover:text-[#915EFF] transition-colors"
+            >
+              Connect
+            </a>
+          </motion.div>
         </div>
 
         <div className="flex-1 w-full h-[450px] lg:h-[550px] relative z-[7]">
