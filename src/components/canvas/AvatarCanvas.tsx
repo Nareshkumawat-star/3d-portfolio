@@ -29,7 +29,7 @@ const Avatar = ({ isMobile }: { isMobile: boolean }) => {
     <primitive
       object={scene}
       ref={group}
-      scale={isMobile ? 3.5 : 3.5}
+      scale={isMobile ? 3.4 : 3.5}
       position={[0, isMobile ? -2.8 : -3.2, 0]}
       rotation={[0, -0.6, 0]}
     />
@@ -50,18 +50,17 @@ const AvatarCanvas = () => {
   return (
     <Canvas
       camera={{
-        position: isMobile ? [0, 1.5, 8] : [0, 0, 14],
-        fov: isMobile ? 45 : 40,
+        position: isMobile ? [0, 1.2, 8] : [0, 0, 14],
+        fov: isMobile ? 48 : 40,
       }}
       gl={{ preserveDrawingBuffer: true }}
       className="cursor-pointer"
     >
       <Suspense fallback={<CanvasLoader />}>
-        {/* On mobile: disable orbit controls so man stays fixed */}
+        {/* Re-enabled rotation on mobile but restricted it for better viewing */}
         <OrbitControls
           enableZoom={false}
-          enableRotate={!isMobile}
-          enablePan={!isMobile}
+          enableRotate={true}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
           target={isMobile ? [0, 1, 0] : [0, 0.2, 0]}

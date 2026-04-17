@@ -1,27 +1,55 @@
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import CanvasLoader from "../loader";
 
 // Earth
-const Earth = () => {
+const Earth = ({ isMobile }: { isMobile: boolean }) => {
   // import earth scene
   const earth = useGLTF("./planet/scene.gltf");
 
   return (
-    <primitive object={earth.scene} scale={2.5} position-y={0} rotation-y={0} />
+    <primitive
+      object={earth.scene}
+      scale={isMobile ? 1.8 : 2.5}
+      position-y={0}
+      rotation-y={0}
+    />
   );
 };
 
 // Earth Canvas
 const EarthCanvas = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if device is Mobile
+    const mediaQuery = window.matchMedia("(max-width: 500px)");
+    setIsMobile(mediaQuery.matches);
+
+    const handleMediaQueryChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
+
   return (
     <Canvas
       shadows
       frameloop="demand"
       gl={{ preserveDrawingBuffer: true }}
-      camera={{ fov: 45, near: 0.1, far: 200, position: [-4, 3, 6] }}
+      camera={{
+        fov: 45,
+        near: 0.1,
+        far: 200,
+        position: isMobile ? [-3, 2, 8] : [-4, 3, 6],
+      }}
     >
       {/* Suspense show Canvas Loader on fallback */}
       <Suspense fallback={<CanvasLoader />}>
@@ -33,7 +61,7 @@ const EarthCanvas = () => {
         />
 
         {/* Earth */}
-        <Earth />
+        <Earth isMobile={isMobile} />
       </Suspense>
     </Canvas>
   );

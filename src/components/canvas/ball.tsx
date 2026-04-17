@@ -6,16 +6,17 @@ import {
   useTexture,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import CanvasLoader from "../loader";
 
 type BallProps = {
   imgUrl: string;
+  isMobile: boolean;
 };
 
 // Ball
-const Ball = ({ imgUrl }: BallProps) => {
+const Ball = ({ imgUrl, isMobile }: BallProps) => {
   // use texture from drei
   const [decal] = useTexture([imgUrl]);
 
@@ -25,7 +26,7 @@ const Ball = ({ imgUrl }: BallProps) => {
       <ambientLight intensity={0.25} />
       <directionalLight position={[0, 0, 0.05]} />
       {/* Mesh */}
-      <mesh castShadow receiveShadow scale={2.75}>
+      <mesh castShadow receiveShadow scale={isMobile ? 2.4 : 2.75}>
         <icosahedronGeometry args={[1, 1]} />
         <meshStandardMaterial
           color="#fff8eb"
@@ -49,12 +50,29 @@ type BallCanvasProps = {
 
 // Ball Canvas
 const BallCanvas = ({ icon }: BallCanvasProps) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 500px)");
+    setIsMobile(mediaQuery.matches);
+
+    const handleMediaQueryChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
+
   return (
     <Canvas frameloop="demand" gl={{ preserveDrawingBuffer: true }}>
       {/* Show canvas loader on fallback */}
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls enableZoom={false} />
-        <Ball imgUrl={icon} />
+        <Ball imgUrl={icon} isMobile={isMobile} />
       </Suspense>
 
       {/* Preload all */}
