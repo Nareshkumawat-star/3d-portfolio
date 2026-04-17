@@ -44,7 +44,9 @@ import { AvatarCanvas } from "./canvas";
 export const About = () => {
   return (
     <SectionWrapper idName="about">
-      <div className="flex flex-col lg:flex-row gap-10">
+      {/* Main content - stacks on mobile, side-by-side on lg */}
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
+        {/* Left side - Text */}
         <div className="flex-1">
           {/* Title */}
           <motion.div variants={textVariant()}>
@@ -55,7 +57,7 @@ export const About = () => {
           {/* Body */}
           <motion.p
             variants={fadeIn(undefined, undefined, 0.1, 1)}
-            className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
+            className="mt-4 text-secondary text-[15px] sm:text-[17px] max-w-3xl leading-[26px] sm:leading-[30px]"
           >
             Expertise in software development and Data Structures & Algorithms
             with a strong focus on writing efficient and scalable code.
@@ -69,26 +71,27 @@ export const About = () => {
           {/* Action Buttons */}
           <motion.div
             variants={fadeIn(undefined, undefined, 0.2, 1)}
-            className="mt-8 flex gap-4"
+            className="mt-6 sm:mt-8 flex flex-wrap gap-3 sm:gap-4"
           >
             <a
               href="/Naresh_Kumawat_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-tertiary border border-white-100 py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary hover:bg-white hover:text-tertiary transition-colors"
+              className="bg-tertiary border border-white-100 py-2.5 sm:py-3 px-6 sm:px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary hover:bg-white hover:text-tertiary transition-colors text-[14px] sm:text-[16px]"
             >
               Resume
             </a>
             <a
               href="#contact"
-              className="bg-[#915EFF] py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary hover:bg-white hover:text-[#915EFF] transition-colors"
+              className="bg-[#915EFF] py-2.5 sm:py-3 px-6 sm:px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary hover:bg-white hover:text-[#915EFF] transition-colors text-[14px] sm:text-[16px]"
             >
               Connect
             </a>
           </motion.div>
         </div>
 
-        <div className="flex-1 w-full h-[450px] lg:h-[550px] relative z-[7]">
+        {/* Right side - 3D Avatar */}
+        <div className="flex-1 w-full h-[450px] sm:h-[500px] lg:h-[550px] relative z-[7]">
           {/* Lighter backdrop glow behind man to help him stand out */}
           <div className="absolute inset-0 bg-gradient-to-t from-violet-500/30 to-violet-500/10 rounded-full blur-3xl -z-[1]" />
           
@@ -97,8 +100,8 @@ export const About = () => {
         </div>
       </div>
 
-      {/* Service Card */}
-      <div className="mt-20 flex flex-wrap gap-10">
+      {/* Service Cards - responsive grid */}
+      <div className="mt-12 sm:mt-20 flex flex-wrap justify-center gap-6 sm:gap-10">
         {SERVICES.map((service, i) => (
           <ServiceCard key={service.title} index={i} {...service} />
         ))}

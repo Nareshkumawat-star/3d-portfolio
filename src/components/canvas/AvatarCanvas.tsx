@@ -14,15 +14,14 @@ const Avatar = ({ isMobile }: { isMobile: boolean }) => {
 
   useEffect(() => {
     if (actions["greeting"]) {
-      actions["greeting"].timeScale = 1.3; // Slight increase in hand animation speed
+      actions["greeting"].timeScale = 1.3;
       actions["greeting"].play();
     }
   }, [actions, animations]);
 
   useFrame(() => {
-    // Keep avatar grounded
     if (group.current) {
-      group.current.position.y = -3.2;
+      group.current.position.y = isMobile ? -2.5 : -3.2;
     }
   });
 
@@ -30,8 +29,8 @@ const Avatar = ({ isMobile }: { isMobile: boolean }) => {
     <primitive
       object={scene}
       ref={group}
-      scale={isMobile ? 2.8 : 3.5}
-      position={[0, -3.2, 0]}
+      scale={isMobile ? 4.2 : 3.5}
+      position={[0, isMobile ? -2.5 : -3.2, 0]}
       rotation={[0, -0.6, 0]}
     />
   );
@@ -50,13 +49,19 @@ const AvatarCanvas = () => {
 
   return (
     <Canvas
-      camera={{ position: [0, 0, 14], fov: 40 }}
+      camera={{
+        position: isMobile ? [0, 1, 7] : [0, 0, 14],
+        fov: isMobile ? 50 : 40,
+      }}
       gl={{ preserveDrawingBuffer: true }}
       className="cursor-pointer"
     >
       <Suspense fallback={<CanvasLoader />}>
+        {/* On mobile: disable all orbit controls so man stays fixed */}
         <OrbitControls
           enableZoom={false}
+          enableRotate={!isMobile}
+          enablePan={!isMobile}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
           target={[0, 0.2, 0]}

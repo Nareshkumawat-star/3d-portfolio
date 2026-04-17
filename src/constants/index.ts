@@ -100,7 +100,6 @@ export const TECHNOLOGIES = [
       { name: "Redux", icon: redux },
       { name: "Tailwind", icon: tailwind },
       { name: "Node JS", icon: nodejs },
-      { name: "Three JS", icon: threejs },
     ],
   },
   {
@@ -108,7 +107,7 @@ export const TECHNOLOGIES = [
     skills: [
       { name: "MongoDB", icon: mongodb },
       { name: "Git", icon: git },
-      { name: "Figma", icon: figma },
+      { name: "Docker", icon: docker },
     ],
   },
 ] as const;

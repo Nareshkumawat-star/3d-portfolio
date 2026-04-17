@@ -10,23 +10,23 @@ const Footer = () => {
     <nav
       className={cn(
         styles.paddingX,
-        "w-full flex items-center py-8 bg-primary border-t border-t-secondary/5"
+        "w-full flex items-center py-5 sm:py-8 bg-primary border-t border-t-secondary/5"
       )}
     >
-      <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
-        <p className="text-white text-md font-bold flex">
+      <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 max-w-7xl mx-auto">
+        <p className="text-white text-sm sm:text-md font-bold flex text-center">
           &copy; Shubham {new Date().getFullYear()}. All rights reserved.
         </p>
 
-        {/* Nav Links (Desktop) */}
-        <ul className="list-none hidden flex-row sm:flex gap-10">
+        {/* Social Links - visible on all sizes now */}
+        <ul className="list-none flex flex-row gap-6 sm:gap-10">
           {SOCIALS.map((social) => (
             <li
               key={social.name}
               className="text-secondary font-poppins font-medium cursor-pointer text-[16px] opacity-80 hover:opacity-100 transition"
             >
               <Link to={social.link} target="_blank" rel="noreferrer noopener">
-                <img src={social.icon} alt={social.name} className="h-6 w-6" />
+                <img src={social.icon} alt={social.name} className="h-5 w-5 sm:h-6 sm:w-6" />
               </Link>
             </li>
           ))}

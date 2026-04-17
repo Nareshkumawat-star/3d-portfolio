@@ -29,9 +29,9 @@ const ProjectCard = ({
         scale: 1,
         speed: 450,
       }}
-      className="bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full"
+      className="bg-tertiary p-4 sm:p-5 rounded-2xl w-full sm:w-[360px]"
     >
-      <div className="relative w-full h-[230px]">
+      <div className="relative w-full h-[180px] sm:h-[230px]">
         {/* Work image */}
         <img
           src={image}
@@ -40,10 +40,10 @@ const ProjectCard = ({
         />
 
         {/* Live Site */}
-        <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
+        <div className="absolute inset-0 flex justify-end m-2 sm:m-3 card-img_hover">
           <div
             onClick={() => window.open(live_site_link, "_blank", "noreferrer")}
-            className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
+            className="black-gradient w-8 h-8 sm:w-10 sm:h-10 rounded-full flex justify-center items-center cursor-pointer"
           >
             <img
               src={preview}
@@ -58,7 +58,7 @@ const ProjectCard = ({
             onClick={() =>
               window.open(source_code_link, "_blank", "noreferrer")
             }
-            className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer ml-2"
+            className="black-gradient w-8 h-8 sm:w-10 sm:h-10 rounded-full flex justify-center items-center cursor-pointer ml-2"
           >
             <img
               src={github}
@@ -71,15 +71,15 @@ const ProjectCard = ({
       </div>
 
       {/* Work Info */}
-      <div className="mt-5">
-        <h3 className="text-white font-bold text-[24px]">{name}</h3>
-        <p className="mt-2 text-secondary text-[14px]">{description}</p>
+      <div className="mt-3 sm:mt-5">
+        <h3 className="text-white font-bold text-[18px] sm:text-[24px]">{name}</h3>
+        <p className="mt-1 sm:mt-2 text-secondary text-[12px] sm:text-[14px]">{description}</p>
       </div>
 
       {/* Work Tag */}
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-3 sm:mt-4 flex flex-wrap gap-1.5 sm:gap-2">
         {tags.map((tag, tagIdx) => (
-          <p key={`Tag-${tagIdx}`} className={cn(tag.color, "text-[14px]")}>
+          <p key={`Tag-${tagIdx}`} className={cn(tag.color, "text-[12px] sm:text-[14px]")}>
             #{tag.name}
           </p>
         ))}
@@ -103,7 +103,7 @@ export const Works = () => {
         <div className="w-full flex">
           <motion.p
             variants={fadeIn(undefined, undefined, 0.1, 1)}
-            className="mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]"
+            className="mt-3 text-secondary text-[14px] sm:text-[17px] max-w-3xl leading-[24px] sm:leading-[30px]"
           >
             Following projects showcases my skills and experience through
             real-world examples of my work. Each project is briefly described
@@ -113,8 +113,8 @@ export const Works = () => {
           </motion.p>
         </div>
 
-        {/* Project Card */}
-        <div className="mt-20 flex flex-wrap gap-7">
+        {/* Project Cards - responsive grid */}
+        <div className="mt-10 sm:mt-20 flex flex-wrap justify-center gap-5 sm:gap-7">
           {PROJECTS.map((project, i) => (
             <ProjectCard key={`project-${i}`} index={i} {...project} />
           ))}
