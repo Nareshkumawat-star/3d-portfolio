@@ -21,7 +21,7 @@ const Avatar = ({ isMobile }: { isMobile: boolean }) => {
 
   useFrame(() => {
     if (group.current) {
-      group.current.position.y = isMobile ? -2.5 : -3.2;
+      group.current.position.y = isMobile ? -2.8 : -3.2;
     }
   });
 
@@ -29,8 +29,8 @@ const Avatar = ({ isMobile }: { isMobile: boolean }) => {
     <primitive
       object={scene}
       ref={group}
-      scale={isMobile ? 4.2 : 3.5}
-      position={[0, isMobile ? -2.5 : -3.2, 0]}
+      scale={isMobile ? 3.5 : 3.5}
+      position={[0, isMobile ? -2.8 : -3.2, 0]}
       rotation={[0, -0.6, 0]}
     />
   );
@@ -50,21 +50,21 @@ const AvatarCanvas = () => {
   return (
     <Canvas
       camera={{
-        position: isMobile ? [0, 1, 7] : [0, 0, 14],
-        fov: isMobile ? 50 : 40,
+        position: isMobile ? [0, 1.5, 8] : [0, 0, 14],
+        fov: isMobile ? 45 : 40,
       }}
       gl={{ preserveDrawingBuffer: true }}
       className="cursor-pointer"
     >
       <Suspense fallback={<CanvasLoader />}>
-        {/* On mobile: disable all orbit controls so man stays fixed */}
+        {/* On mobile: disable orbit controls so man stays fixed */}
         <OrbitControls
           enableZoom={false}
           enableRotate={!isMobile}
           enablePan={!isMobile}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
-          target={[0, 0.2, 0]}
+          target={isMobile ? [0, 1, 0] : [0, 0.2, 0]}
         />
         <ambientLight intensity={1} />
         <pointLight position={[10, 10, 10]} intensity={1.5} />
