@@ -1,27 +1,35 @@
-import React from "react";
 import { Html, useProgress } from "@react-three/drei";
 
-// Loader while canvas (model) is loading
-const Loader = () => {
-  const { progress } = useProgress(); // use drei progress
-
+const CanvasLoader = () => {
+  const { progress } = useProgress();
+  
   return (
-    <Html>
-      <span className="canvas-load">
-        {/* Show percentage */}
+    <Html
+      as='div'
+      center
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <div className="flex flex-col items-center justify-center">
+        <span className='canvas-loader mb-4'></span>
+        <div className="w-[120px] h-[4px] bg-tertiary rounded-full overflow-hidden relative border border-white/10">
+          <div 
+            className="absolute top-0 left-0 h-full bg-[#915eff] transition-all duration-300 ease-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
         <p
-          style={{
-            fontSize: 14,
-            color: "#f1f1f1",
-            fontWeight: 800,
-            marginTop: 40,
-          }}
+          className="mt-2 text-[#f1f1f1] font-bold text-[14px]"
         >
-          {progress.toFixed(2)}%
+          {progress.toFixed(0)}%
         </p>
-      </span>
+      </div>
     </Html>
   );
 };
 
-export default Loader;
+export default CanvasLoader;
