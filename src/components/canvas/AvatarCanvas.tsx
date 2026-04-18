@@ -22,18 +22,12 @@ const Avatar = ({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }
   }, [actions]);
 
   useFrame((state, delta) => {
-    if (group.current) {
-      group.current.position.y = isMobile ? -3.8 : -4.8;
-    }
-
     // Head tracking logic
-    // We target the head and neck bones to look at the mouse
-    // Smooth head & neck rotation tracking with slightly reduced range to prevent clipping at large scales
     if (nodes.Head && nodes.Neck) {
       easing.dampE(
         nodes.Head.rotation,
-        [state.pointer.y * 0.35, state.pointer.x * 0.5, 0], // Reduced influence for stability
-        0.2, // Faster damping for smoother tracking
+        [state.pointer.y * 0.35, state.pointer.x * 0.5, 0],
+        0.2,
         delta
       );
       easing.dampE(
@@ -49,8 +43,8 @@ const Avatar = ({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }
     <primitive
       object={scene}
       ref={group}
-      scale={isMobile ? 8.2 : isTablet ? 7.8 : 7.0} // Even larger scale
-      position={[0, isMobile ? -5.8 : isTablet ? -6.2 : -6.8, 0]} // Adjusted Y for larger scale
+      scale={isMobile ? 2.8 : isTablet ? 3.0 : 3.4}
+      position={isMobile ? [0, -2.4, 0] : isTablet ? [0, -2.6, 0] : [0, -3.0, 0]}
       rotation={[0, -0.6, 0]}
     />
   );
@@ -74,8 +68,8 @@ const AvatarCanvas = () => {
   return (
     <Canvas
       camera={{
-        position: isMobile ? [0, 1.0, 7.5] : isTablet ? [0, 1.2, 12] : [0, 1, 14], // Closer camera for impactful view
-        fov: isMobile ? 55 : isTablet ? 50 : 45,
+        position: isMobile ? [0, 0.5, 8] : isTablet ? [0, 0.8, 10] : [0, 1.2, 12],
+        fov: isMobile ? 45 : isTablet ? 40 : 35,
       }}
       gl={{ preserveDrawingBuffer: true, alpha: true, powerPreference: "high-performance" }}
       className="w-full h-full cursor-pointer"
@@ -87,7 +81,7 @@ const AvatarCanvas = () => {
           enableRotate={true}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
-          target={isMobile ? [0, 1.8, 0] : isTablet ? [0, 1.6, 0] : [0, 1.5, 0]}
+          target={isMobile ? [0, 0.5, 0] : isTablet ? [0, 0.8, 0] : [0, 1.0, 0]}
           enableDamping={true}
           dampingFactor={0.05}
         />

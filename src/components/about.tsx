@@ -89,7 +89,7 @@ export const About = () => {
         </div>
 
         {/* Right side - 3D Avatar */}
-        <div className="flex-1 w-full h-[750px] sm:h-[650px] lg:h-[850px] relative">
+        <div className="flex-1 w-full h-[450px] sm:h-[500px] lg:h-[700px] relative">
           {/* Lighter backdrop glow */}
           <div className="absolute -inset-10 sm:-inset-20 bg-gradient-to-t from-violet-500/30 to-violet-500/5 rounded-full blur-[80px] sm:blur-[120px] -z-[1]" />
 
@@ -99,7 +99,7 @@ export const About = () => {
       </div>
 
       {/* Service Cards - responsive grid */}
-      <div className="mt-20 flex flex-wrap justify-center gap-10">
+      <div className="mt-10 sm:mt-20 flex flex-wrap justify-center gap-6 sm:gap-10">
         {SERVICES.map((service, i) => (
           <ServiceCard key={service.title} index={i} {...service} />
         ))}
